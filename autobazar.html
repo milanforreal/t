@@ -1,0 +1,474 @@
+
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoBazár | Predaj a kúpa automobilov</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: white;
+}
+
+header {
+    background: #080808;
+    padding: 20px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #e31e24;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+}
+
+.logo span {
+    color: #e31e24;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #e31e24;
+}
+
+.button {
+    background: #e31e24;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.button:hover {
+    background: #b9151a;
+}
+
+.hero {
+    min-height: 450px;
+    display: flex;
+    align-items: center;
+    padding: 60px 10%;
+    background:
+    linear-gradient(90deg, rgba(0,0,0,.9), rgba(0,0,0,.3)),
+    url("https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1600&q=80");
+    background-size: cover;
+    background-position: center;
+}
+
+.hero h1 {
+    font-size: 55px;
+    margin-bottom: 20px;
+}
+
+.hero h1 span {
+    color: #e31e24;
+}
+
+.hero p {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+section {
+    padding: 60px 8%;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 35px;
+    margin-bottom: 35px;
+}
+
+.section-title span {
+    color: #e31e24;
+}
+
+.search-box {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 35px;
+    flex-wrap: wrap;
+}
+
+.search-box input,
+.search-box select {
+    padding: 13px;
+    background: #222;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 5px;
+    flex: 1;
+    min-width: 180px;
+}
+
+.cars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+}
+
+.car-card {
+    background: #1c1c1c;
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: .3s;
+}
+
+.car-card:hover {
+    transform: translateY(-5px);
+    border-color: #e31e24;
+}
+
+.car-card img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+}
+
+.car-info {
+    padding: 20px;
+}
+
+.car-info h3 {
+    font-size: 22px;
+    margin-bottom: 12px;
+}
+
+.details {
+    color: #bbb;
+    line-height: 1.8;
+    font-size: 14px;
+}
+
+.price {
+    color: #e31e24;
+    font-size: 25px;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.car-info button {
+    width: 100%;
+}
+
+.about {
+    background: #1a1a1a;
+    line-height: 1.8;
+    text-align: center;
+}
+
+.about p {
+    max-width: 800px;
+    margin: auto;
+    color: #ccc;
+    font-size: 18px;
+}
+
+.features {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.features div {
+    color: #e31e24;
+    font-weight: bold;
+}
+
+.contact {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.contact-info p {
+    margin: 20px 0;
+    color: #ccc;
+}
+
+.contact form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact input,
+.contact textarea {
+    padding: 15px;
+    background: #222;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+}
+
+.contact textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+footer {
+    background: #080808;
+    padding: 25px;
+    text-align: center;
+    color: #aaa;
+    border-top: 2px solid #e31e24;
+}
+
+footer span {
+    color: #e31e24;
+}
+
+@media (max-width: 700px) {
+    header {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    nav a {
+        margin: 0 7px;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .contact {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">AUTO<span>BAZÁR</span></div>
+
+    <nav>
+        <a href="#domov">Domov</a>
+        <a href="#ponuka">Ponuka áut</a>
+        <a href="#onas">O nás</a>
+        <a href="#kontakt">Kontakt</a>
+    </nav>
+
+    <a href="#kontakt" class="button">Kontaktovať nás</a>
+</header>
+
+<!-- DOMOV -->
+
+<div class="hero" id="domov">
+    <div>
+        <h1>Váš spoľahlivý<br><span>autobazár</span></h1>
+        <p>Kvalitné vozidlá, férové ceny a profesionálny prístup.</p>
+        <a href="#ponuka" class="button">Pozrieť ponuku áut →</a>
+    </div>
+</div>
+
+<!-- PONUKA ÁUT -->
+
+<section id="ponuka">
+
+    <h2 class="section-title">Naša <span>ponuka áut</span></h2>
+
+    <div class="search-box">
+        <input type="text" id="hladat" placeholder="Hľadať značku alebo model...">
+
+        <select id="palivo">
+            <option value="">Všetky palivá</option>
+            <option value="Diesel">Diesel</option>
+            <option value="Benzín">Benzín</option>
+            <option value="Hybrid">Hybrid</option>
+        </select>
+
+        <select id="cena">
+            <option value="">Všetky ceny</option>
+            <option value="15000">Do 15 000 €</option>
+            <option value="20000">Do 20 000 €</option>
+            <option value="30000">Do 30 000 €</option>
+        </select>
+    </div>
+
+    <div class="cars" id="zoznam-aut">
+
+        <div class="car-card" data-name="BMW 320d" data-palivo="Diesel" data-cena="19990">
+            <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=800&q=80" alt="BMW 320d">
+            <div class="car-info">
+                <h3>BMW 320d</h3>
+                <p class="details">Rok: 2019<br>Najazdené: 120 000 km<br>Palivo: Diesel</p>
+                <div class="price">19 990 €</div>
+                <button class="button" onclick="detail('BMW 320d','19 990 €','2019','120 000 km','Diesel')">Zobraziť detail</button>
+            </div>
+        </div>
+
+        <div class="car-card" data-name="BMW M3 Competition" data-palivo="Benzín" data-cena="17990">
+            <img src="data:image/webp;base64,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" alt="Škoda Octavia">
+            <div class="car-info">
+                <h3>BMW M3 Competition </h3>
+                <p class="details">Rok: 2020<br>Najazdené: 95 000 km<br>Palivo: Benzín</p>
+                <div class="price">17 990 €</div>
+                <button class="button" onclick="detail('Škoda Octavia','17 990 €','2020','95 000 km','Benzín')">Zobraziť detail</button>
+            </div>
+        </div>
+
+        <div class="car-card" data-name="Audi A4" data-palivo="Diesel" data-cena="21990">
+            <img src="https://th.bing.com/th/id/OIP.fOiSoSQowpOloshgpEcxkAHaEc?w=300&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="Audi A4">
+            <div class="car-info">
+                <h3>Audi A4</h3>
+                <p class="details">Rok: 2018<br>Najazdené: 130 000 km<br>Palivo: Diesel</p>
+                <div class="price">21 990 €</div>
+                <button class="button" onclick="detail('Audi A4','21 990 €','2018','130 000 km','Diesel')">Zobraziť detail</button>
+            </div>
+        </div>
+
+        <div class="car-card" data-name="Volkswagen Golf" data-palivo="Benzín" data-cena="18990">
+            <img src="https://th.bing.com/th/id/OIP.DlfiGUsZLJCT1cUScUrw8QHaFj?w=239&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="Volkswagen Golf Gti R">
+            <div class="car-info">
+                <h3>Volkswagen Golf GTI R</h3>
+                <p class="details">Rok: 2015<br>Najazdené: 60 000 km<br>Palivo: Benzín</p>
+                <div class="price">15 990 €</div>
+                <button class="button" onclick="detail('Volkswagen Golf','18 990 €','2021','60 000 km','Benzín')">Zobraziť detail</button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- O NÁS -->
+
+<section class="about" id="onas">
+
+    <h2 class="section-title">Niečo <span>o nás</span></h2>
+
+    <p>
+        Sme moderný autobazár s dlhoročnými skúsenosťami
+        v oblasti predaja a kúpy automobilov. Našim zákazníkom
+        ponúkame kvalitné a overené vozidlá za výhodné ceny.
+        Naším cieľom je spokojnosť každého zákazníka.
+    </p>
+
+    <div class="features">
+        <div>✓ Overené vozidlá</div>
+        <div>✓ Férové ceny</div>
+        <div>✓ Profesionálny prístup</div>
+        <div>✓ Záruka kvality</div>
+    </div>
+
+</section>
+
+<!-- KONTAKT -->
+
+<section id="kontakt">
+
+    <h2 class="section-title">Kontaktujte <span>nás</span></h2>
+
+    <div class="contact">
+
+        <div class="contact-info">
+            <h2>AutoBazár</h2>
+            <p>📞 +421 900 123 456</p>
+            <p>✉️ Autobazar@gmail.com</p>
+            <p>📍 Piešťany Nová 9</p>
+            <p>🕒 Pondelok – Piatok: 8:00 – 17:00</p>
+            <p>🕒 Sobota: 9:00 – 12:00</p>
+        </div>
+
+        <form onsubmit="odoslat(event)">
+            <input type="text" placeholder="Vaše meno" required>
+            <input type="email" placeholder="Váš email" required>
+            <textarea placeholder="Vaša správa..." required></textarea>
+            <button class="button" type="submit">Odoslať správu</button>
+        </form>
+
+    </div>
+
+</section>
+
+<footer>
+    <p>© 2026 <span>AutoBazár</span> | Všetky práva vyhradené.</p>
+</footer>
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+function detail(nazov, cena, rok, km, palivo) {
+    alert(
+        "Informácie o vozidle:\n\n" +
+        "Model: " + nazov + "\n" +
+        "Cena: " + cena + "\n" +
+        "Rok výroby: " + rok + "\n" +
+        "Najazdené: " + km + "\n" +
+        "Palivo: " + palivo
+    );
+}
+
+function odoslat(event) {
+    event.preventDefault();
+    alert("Ďakujeme za vašu správu! Čoskoro vás budeme kontaktovať.");
+    event.target.reset();
+}
+
+function filtrovat() {
+
+    let hladat = document.getElementById("hladat").value.toLowerCase();
+    let palivo = document.getElementById("palivo").value;
+    let cena = document.getElementById("cena").value;
+
+    let auta = document.querySelectorAll(".car-card");
+
+    auta.forEach(auto => {
+
+        let nazov = auto.dataset.name.toLowerCase();
+        let typPaliva = auto.dataset.palivo;
+        let cenaAuta = Number(auto.dataset.cena);
+
+        let nazovOK = nazov.includes(hladat);
+        let palivoOK = palivo === "" || typPaliva === palivo;
+        let cenaOK = cena === "" || cenaAuta <= Number(cena);
+
+        if (nazovOK && palivoOK && cenaOK) {
+            auto.style.display = "block";
+        } else {
+            auto.style.display = "none";
+        }
+
+    });
+}
+
+document.getElementById("hladat").addEventListener("input", filtrovat);
+document.getElementById("palivo").addEventListener("change", filtrovat);
+document.getElementById("cena").addEventListener("change", filtrovat);
+
+</script>
+
+</body>
+</html>
